@@ -1,7 +1,10 @@
 declare namespace Cypress {
   interface ApplicationWindow {
     location: {
-      href: string;
+      href: {
+        set: (url: string) => void;
+        get: () => string;
+      };
     };
 
     open: (

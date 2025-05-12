@@ -6,14 +6,15 @@ RUN npm install -g pnpm
 # Install dependencies
 WORKDIR /app
 
-COPY cypress.config.ts .
-COPY cypress/ cypress/
 COPY package.json .
 COPY pnpm-lock.yaml .
+
+RUN pnpm install && pnpm cypress install
+
 COPY tsconfig.json .
 COPY tsconfig.node.json .
 COPY tsconfig.app.json .
-
-RUN pnpm install && pnpm cypress install
+COPY cypress.config.ts .
+COPY cypress/ cypress/
 
 ENTRYPOINT [ "pnpm", "cypress", "run" ]

@@ -3,7 +3,21 @@ describe("Send Mail", () => {
     cy.visit("/locationHref", {
       onBeforeLoad(win) {
         // Doesn't work
-        cy.stub(win, "location").as("locationStub");
+        const oldLocation = win.location as unknown as { href: string };
+        win.location = {
+          ...oldLocation,
+          href: {
+            set: (url: string) => {
+              console.log("Setting location.href to:", url);
+              if (url.startsWith("mailto:")) {
+                console.log("Mailto link generated:", url);
+              }
+
+              oldLocation.href = url;
+            },
+            get: () => oldLocation.href,
+          },
+        };
       },
     });
   });

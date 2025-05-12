@@ -10,104 +10,123 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as LocationHrefImport } from "./routes/locationHref";
-import { Route as FormActionImport } from "./routes/formAction";
-import { Route as IndexImport } from "./routes/index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as LocationHrefImport } from './routes/locationHref'
+import { Route as FormActionImport } from './routes/formAction'
+import { Route as ATagImport } from './routes/aTag'
+import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
 const LocationHrefRoute = LocationHrefImport.update({
-  id: "/locationHref",
-  path: "/locationHref",
+  id: '/locationHref',
+  path: '/locationHref',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const FormActionRoute = FormActionImport.update({
-  id: "/formAction",
-  path: "/formAction",
+  id: '/formAction',
+  path: '/formAction',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
+
+const ATagRoute = ATagImport.update({
+  id: '/aTag',
+  path: '/aTag',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/formAction": {
-      id: "/formAction";
-      path: "/formAction";
-      fullPath: "/formAction";
-      preLoaderRoute: typeof FormActionImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/locationHref": {
-      id: "/locationHref";
-      path: "/locationHref";
-      fullPath: "/locationHref";
-      preLoaderRoute: typeof LocationHrefImport;
-      parentRoute: typeof rootRoute;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/aTag': {
+      id: '/aTag'
+      path: '/aTag'
+      fullPath: '/aTag'
+      preLoaderRoute: typeof ATagImport
+      parentRoute: typeof rootRoute
+    }
+    '/formAction': {
+      id: '/formAction'
+      path: '/formAction'
+      fullPath: '/formAction'
+      preLoaderRoute: typeof FormActionImport
+      parentRoute: typeof rootRoute
+    }
+    '/locationHref': {
+      id: '/locationHref'
+      path: '/locationHref'
+      fullPath: '/locationHref'
+      preLoaderRoute: typeof LocationHrefImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/formAction": typeof FormActionRoute;
-  "/locationHref": typeof LocationHrefRoute;
+  '/': typeof IndexRoute
+  '/aTag': typeof ATagRoute
+  '/formAction': typeof FormActionRoute
+  '/locationHref': typeof LocationHrefRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/formAction": typeof FormActionRoute;
-  "/locationHref": typeof LocationHrefRoute;
+  '/': typeof IndexRoute
+  '/aTag': typeof ATagRoute
+  '/formAction': typeof FormActionRoute
+  '/locationHref': typeof LocationHrefRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  "/": typeof IndexRoute;
-  "/formAction": typeof FormActionRoute;
-  "/locationHref": typeof LocationHrefRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/aTag': typeof ATagRoute
+  '/formAction': typeof FormActionRoute
+  '/locationHref': typeof LocationHrefRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/formAction" | "/locationHref";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/formAction" | "/locationHref";
-  id: "__root__" | "/" | "/formAction" | "/locationHref";
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/aTag' | '/formAction' | '/locationHref'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/aTag' | '/formAction' | '/locationHref'
+  id: '__root__' | '/' | '/aTag' | '/formAction' | '/locationHref'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  FormActionRoute: typeof FormActionRoute;
-  LocationHrefRoute: typeof LocationHrefRoute;
+  IndexRoute: typeof IndexRoute
+  ATagRoute: typeof ATagRoute
+  FormActionRoute: typeof FormActionRoute
+  LocationHrefRoute: typeof LocationHrefRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ATagRoute: ATagRoute,
   FormActionRoute: FormActionRoute,
   LocationHrefRoute: LocationHrefRoute,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -116,12 +135,16 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/aTag",
         "/formAction",
         "/locationHref"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/aTag": {
+      "filePath": "aTag.tsx"
     },
     "/formAction": {
       "filePath": "formAction.tsx"

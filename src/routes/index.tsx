@@ -19,7 +19,7 @@ function RouteComponent() {
             `mailto:${email}?subject=${encodeURIComponent(
               subject,
             )}&body=${encodeURIComponent(body)}`,
-            '_self'
+            'sendMail',
           );
         }}
         data-testid="email-form"
